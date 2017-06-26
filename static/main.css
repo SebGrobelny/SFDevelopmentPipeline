@@ -1,0 +1,59 @@
+/*body {
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    font-weight: 500;
+}
+*/
+h1
+{
+	text-align:center;
+}
+
+
+.attr
+{
+	display: flex;
+    flex-direction: row;
+    align-content: space-around;
+    justify-content: space-between;
+    border: 1px solid white;
+    flex-shrink: 2;
+}
+
+#key 
+{
+	display: flex;
+    flex-direction: row;
+    align-content: space-around;
+    flex: 1;
+  /*  border: 1px solid white;*/
+
+}
+.container
+{
+	display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex: 1;
+    flex-wrap: wrap;
+    margin: 25px;
+    border: 1px solid white;
+
+}
+
+
+body {
+  background: #363A44;
+  color: #FFFFFF;
+  width: 90%;
+  margin: 0 auto;
+  /*text-align: center;*/
+  font-family: 'Fjalla One', sans-serif;
+}
+
+svg {
+  margin: 20px;
+}
+
+path:hover {
+  opacity: 0.5;
+}
