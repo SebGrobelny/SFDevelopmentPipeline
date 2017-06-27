@@ -43,10 +43,10 @@ def getFilters(neighborhoods,filings,years,quarters):
 	print "In getFilters"
 
 
-	neighborhoods = neighborhoods.split()
-	filings = filings.split()
-	years = years.split()
-	quarters = quarters.split()
+	neighborhoods = neighborhoods.split(',')
+	filings = filings.split(',')
+	years = years.split(',')
+	quarters = quarters.split(',')
 
 	print neighborhoods
 	print filings

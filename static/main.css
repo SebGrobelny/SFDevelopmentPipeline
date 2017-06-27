@@ -41,13 +41,29 @@ h1
 }
 
 
-body {
+.main {
   background: #363A44;
   color: #FFFFFF;
   width: 90%;
   margin: 0 auto;
   /*text-align: center;*/
   font-family: 'Fjalla One', sans-serif;
+}
+
+/*h1
+{
+font-family: 'Fjalla One', sans-serif;
+}
+
+h3
+{
+    font-family: 'Fjalla One', sans-serif;
+}*/
+
+.button
+{
+    margin-bottom : 10px;
+    border-radius: 12px;
 }
 
 svg {

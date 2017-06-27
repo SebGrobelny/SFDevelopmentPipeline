@@ -3,7 +3,7 @@ import petl as etl
 
 
 #GLOBALS
-table1 = etl.fromcsv("Map_SF_Pipeline_2015_Q1.csv")
+table1 = etl.fromcsv("2015_Q1.csv")
 
 #parses csv for columns/attributes that we are primarily concerned with
 #locationTable--table with coordinates,zoning symbols,addresses and 
@@ -41,28 +41,86 @@ for i in range(0,len(d)):
 # for key in uniqueFilings.keys():
 # 	print key
 
+
+def openFileTable(years,quarters):
+	print "In openFileTable"
+	table = []
+	#traverse through the list of years provided via filters
+	for year in years:
+		#traverse through the list of quarters provided via filters
+		for quarter in quarters:
+			print quarter
+			#TODO--migrate transformations accordingly
+			if quarter == 'Q1':
+				attrList = [0,1,2,5,7,33,42]
+
+			if quarter == 'Q4':
+				attrList = [0,2,4,5,13,35,43]
+
+			if quarter == 'Q3':
+				attrList = [0,2,4,5,11,38,43]
+
+			if quarter == 'Q2':
+				attrList = [0,2,4,5,9,39,43]
+
+			fileString = year+'_'+quarter+'.csv'
+			table1 = etl.fromcsv(fileString)
+			#0-BESTSTAT 1-BESTDATE 2-NAMEADDR 5-PROPUSE 7-PROJECT_TYPE 31-ZONING_SIM 33-NEIGHBORHOOD 42-LOCATION 
+			tempTable = etl.cut(table1, *attrList)
+			if quarter == 'Q3':
+				tempTable = etl.convert(tempTable, 'Location', lambda v:v[5:])
+			#adding the quarter and year to identify the table
+			tempTable = etl.addfield(tempTable,'Quarter', quarter)
+			tempTable = etl.addfield(tempTable,'Year', year)
+
+			print tempTable
+			
+			table.append(tempTable)
+
+	return table
+
+
+
 def dictFromTable():
-	listings = []
 
 	insights = {}
 	#number of applications filed
-	insights['Applications Filed']=0
+	insights['Building Permits Filed']=0
 	#number of commercial in the works
 	insights['Commercial Project Count']=0
 	#number of residential in the works
 	insights['Residential Project Count']=0
 
-	for i in range(0,len(d)):
-			if 'BP FILED' == d[i]['BESTSTAT']:
-				insights['Applications Filed'] = insights['Applications Filed']+1
 
-			if 'Resident' == d[i]['PROJECT_TYPE']:
-				insights['Residential Project Count'] = insights['Residential Project Count']+1
 
-			if 'Mixed' == d[i]['PROJECT_TYPE']:
-				insights['Commercial Project Count'] = insights['Commercial Project Count']+1
+	listings = []
 
-			listings.append(d[i])
+
+	years = ['2015']
+	quarters =['Q1','Q2','Q3','Q4']
+
+	tableList = openFileTable(years,quarters)
+
+	for table in tableList:
+		#transforms into dictionary
+
+		d = etl.dicts(table)
+		# print etl.look(table)
+		#list of dictionaries
+		b = list(d)
+
+		for i in range(0,len(b)):
+				#print b[i]
+				if 'BP FILED' == b[i]['BESTSTAT']:
+					insights['Building Permits Filed'] = insights['Building Permits Filed']+1
+
+				if 'Resident' == b[i]['PROJECT_TYPE']:
+					insights['Residential Project Count'] = insights['Residential Project Count']+1
+
+				if 'Mixed' == b[i]['PROJECT_TYPE']:
+					insights['Commercial Project Count'] = insights['Commercial Project Count']+1
+
+				listings.append(b[i])
 
 	listings.insert(0,insights)
 
@@ -88,13 +146,14 @@ def filtersFromTable():
 
 	return filters
 
+#TODO incoprotate select filters into neighborhood stuff 
 def getFromTable(neighborhood):
 
 	neighbors = []
 
 	insights = {}
 	#number of applications filed
-	insights['Applications Filed']=0
+	insights['Building Permits Filed']=0
 	#number of commercial in the works
 	insights['Commercial Project Count']=0
 	#number of residential in the works
@@ -105,8 +164,10 @@ def getFromTable(neighborhood):
 		if neighborhood in d[i]['NEIGHBORHOOD']:
 			neighbors.append(d[i])
 
+			
+
 			if 'BP FILED' == d[i]['BESTSTAT']:
-				insights['Applications Filed'] = insights['Applications Filed']+1
+				insights['Building Permits Filed'] = insights['Building Permits Filed']+1
 
 			if 'Resident' == d[i]['PROJECT_TYPE']:
 				insights['Residential Project Count'] = insights['Residential Project Count']+1
@@ -127,32 +188,56 @@ def getFiltersFromTable(neighborhoods,filings,years,quarters):
 
 	filteredListing = []
 
+	#if no filters selected from filters assume all are desired
+	if filings[0] == 'null':
+		filings = uniqueFilings.keys()
+
+	if years[0] == 'null':
+		years = ['2015','2016']
+
+	if quarters[0] == 'null':
+		quarters = ['Q1','Q2','Q3','Q4']
+
+	if neighborhoods[0] == 'null':
+		neighborhoods = uniqueNeighborhoods.keys()
+
+	tableList = openFileTable(years,quarters)
+
 	#TODO might generate different reports depending on what is filtered
 	insights = {}
 	#number of applications filed
-	insights['Applications Filed']=0
+	insights['Building Permits Filed']=0
 	#number of commercial in the works
 	insights['Commercial Project Count']=0
 	#number of residential in the works
 	insights['Residential Project Count']=0
 
+	for table in tableList:
 
-	for i in range(0,len(d)):
+		#transforms into dictionary
 
-		if d[i]['BESTSTAT'] in filings:
+		d = etl.dicts(table)
+		# print etl.look(table)
+		#list of dictionaries
+		b = list(d)
 
-			if d[i]['NEIGHBORHOOD'] in neighborhoods:
 
-				if 'BP FILED' == d[i]['BESTSTAT']:
-					insights['Applications Filed'] = insights['Applications Filed']+1
+		for i in range(0,len(b)):
 
-				if 'Resident' == d[i]['PROJECT_TYPE']:
-					insights['Residential Project Count'] = insights['Residential Project Count']+1
+			if b[i]['BESTSTAT'] in filings:
 
-				if 'Mixed' == d[i]['PROJECT_TYPE']:
-					insights['Commercial Project Count'] = insights['Commercial Project Count']+1
+				if b[i]['NEIGHBORHOOD'] in neighborhoods:
 
-				filteredListing.append(d[i])
+					if 'BP FILED' == b[i]['BESTSTAT']:
+						insights['Building Permits Filed'] = insights['Building Permits Filed']+1
+
+					if 'Resident' == b[i]['PROJECT_TYPE']:
+						insights['Residential Project Count'] = insights['Residential Project Count']+1
+
+					if 'Mixed' == b[i]['PROJECT_TYPE']:
+						insights['Commercial Project Count'] = insights['Commercial Project Count']+1
+
+					filteredListing.append(d[i])
 
 	filteredListing.insert(0,insights)
 
