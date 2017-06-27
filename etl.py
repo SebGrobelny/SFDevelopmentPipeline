@@ -133,7 +133,7 @@ def filtersFromTable():
 	#print "In filtersFromTable"
 	#filter dictionary used for storing all filters to be displayed 
 	filterList = []
-	filters = {}
+	filters = dict()
 
 	filters['Select a Year'] = ['2015','2016']
 	filters['Select a Quarter'] = ['Q1','Q2','Q3','Q4']
