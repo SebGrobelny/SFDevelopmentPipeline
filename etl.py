@@ -43,13 +43,13 @@ for i in range(0,len(d)):
 
 
 def openFileTable(years,quarters):
-	print "In openFileTable"
+	#print "In openFileTable"
 	table = []
 	#traverse through the list of years provided via filters
 	for year in years:
 		#traverse through the list of quarters provided via filters
 		for quarter in quarters:
-			print quarter
+			#print quarter
 			#TODO--migrate transformations accordingly
 			if quarter == 'Q1':
 				attrList = [0,1,2,5,7,33,42]
@@ -73,7 +73,7 @@ def openFileTable(years,quarters):
 			tempTable = etl.addfield(tempTable,'Quarter', quarter)
 			tempTable = etl.addfield(tempTable,'Year', year)
 
-			print tempTable
+			#print tempTable
 			
 			table.append(tempTable)
 
@@ -130,7 +130,7 @@ def dictFromTable():
 
 
 def filtersFromTable():
-	print "In filtersFromTable"
+	#print "In filtersFromTable"
 	#filter dictionary used for storing all filters to be displayed 
 	filterList = []
 	filters = {}
