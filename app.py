@@ -17,7 +17,7 @@ def main():
 #obtain filters
 @app.route('/loadFilters', methods=['GET'])
 def loadFilters():
-	listingDict = dict(filtersFromTable())
+	listingDict = list(filtersFromTable())
 
 	return jsonify(listingDict)
 
