@@ -1272,7 +1272,8 @@ function loadFilters()
 		}
 
 
-	var url = "http://127.0.0.1:5000/";
+	// var url = "http://127.0.0.1:5000/";
+	var url = "https://sebsfdevelop.herokuapp.com/";
 
 	url = url+'loadFilters';
 	
@@ -1299,7 +1300,8 @@ function processNeighborhood(neighborhood)
 			myNode.remove(myNode.firstChild)
 		}
 	//TODO: figure out a way to parametrize this url
-	var url = "http://127.0.0.1:5000/";
+	// var url = "http://127.0.0.1:5000/";
+	var url = "https://sebsfdevelop.herokuapp.com/";
 
 	console.log(neighborhood);
 	url = url+"getNeighborhood/neighborhood="+neighborhood;
@@ -1344,7 +1346,8 @@ function processRequest()
 			myNode.remove(myNode.firstChild)
 		}
 	//TODO: figure out a way to parametrize this url
-	var url = "http://127.0.0.1:5000/";
+	// var url = "http://127.0.0.1:5000/";
+	var url = "https://sebsfdevelop.herokuapp.com/";
 
 	//obtain the filings selected
 	var filingSelection = document.getElementById('Select a Filing');
