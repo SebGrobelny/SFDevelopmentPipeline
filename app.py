@@ -32,7 +32,6 @@ def getAllDict():
 @app.route('/getNeighborhood/neighborhood=<neighborhood>', methods=['GET'])
 def getNeighborhoodDict(neighborhood):
 
-	print "In getNeighborhoodDict"
 	listingDict = getFromTable(neighborhood)
 
 	return jsonify(listingDict)
@@ -40,18 +39,12 @@ def getNeighborhoodDict(neighborhood):
 #obtain listings based on filters
 @app.route('/getFilters/neighborhood=<neighborhoods>/filing=<filings>/year=<years>/quarter=<quarters>', methods=['GET'])
 def getFilters(neighborhoods,filings,years,quarters):
-	print "In getFilters"
-
 
 	neighborhoods = neighborhoods.split(',')
 	filings = filings.split(',')
 	years = years.split(',')
 	quarters = quarters.split(',')
 
-	print neighborhoods
-	print filings
-	print years
-	print quarters
 
 	listingDict = getFiltersFromTable(neighborhoods,filings,years,quarters)
 
