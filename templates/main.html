@@ -25,15 +25,28 @@
  <h3 id="details">Click on a neighborhood or select filters for development insights</h3>
  <div id ="filters"> 
 
+ 	<select id="Select a Neighborhood" class ="selectpicker">
+ 		<option value = "null"> Select a Filing </option>
+ 		<option value = "BP ISSUED">BP ISSUED</option>
+		<option value = "BP REINSTATED"> BP REINSTATED</option>
+		<option value = "PL FILED">PL FILED</option>
+		<option value = "BP FILED">BP FILED</option>
+		<option value = "BP APPROVED">BP APPROVED</option>
+		<option value = "PL APPROVED">PL APPROVED</option>
+		<option value = "CONSTRUCTION">CONSTRUCTION</option>
+
+
+ 	</select>
+
 
 
  	<select id="Select a Neighborhood" class ="selectpicker">
  						<option value = "null"> Select a Neighborhood </option>
-						<option value ="Inner Richmond">        Inner Richmond </option>
-						<option value ="Financial District">   Financial District </option>
-						<option value ="Glen Park ">  Glen Park </option>
-						<option value ="Western Addition">   Western Addition </option>
-						<option value ="Outer Richmond">   Outer Richmond </option>
+						<option value ="Inner Richmond">Inner Richmond </option>
+						<option value ="Financial District">Financial District </option>
+						<option value ="Glen Park ">Glen Park </option>
+						<option value ="Western Addition">Western Addition </option>
+						<option value ="Outer Richmond">Outer Richmond </option>
 						<option value ="Parkside">   Parkside </option>
 						<option value ="Presidio Heights">   Presidio Heights </option>
 						<option value ="Bernal Heights">   Bernal Heights </option>
@@ -82,7 +95,7 @@
            <option value="Q4">Q4</option>
       </select>
 
-     <input type="button" class="button" value="Filter" onclick="procesRequest()">
+     <input type="button" class="button" value="Filter" onclick="processRequest()">
  </div>
 <div id = "map"> </div>
 <div id = "listings"> </div>
