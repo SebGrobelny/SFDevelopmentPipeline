@@ -142,7 +142,7 @@ def filtersFromTable():
 
 	filters['Select a Filing'] = uniqueFilings.keys()
 
-	
+	print(type(filters))
 
 	return filters
 
