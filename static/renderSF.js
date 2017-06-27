@@ -1035,25 +1035,6 @@ var width = 918,
 
 
 //TODO create function that takes coordinates of locations generated and plots them on map
-// function appendPlot(key, listingData, plotList)
-// {
-// 	console.log("Making plot list");
-//    //attempting to plot points on map
-//    // points
-//   // set projection parameters
-//   	// projection
-//    //    .scale(1000)
-//    //    .center([-106, 37.5])
-//    listingData[key] = listingData[key].replace(/[{()}]/g, '');
-//    tuple = listingData[key].split(',');
-//    temp = parseFloat(tuple[0]);
-//    tuple[0] = parseFloat(tuple[1]);
-//    tuple[1] = temp;
-//    console.log(tuple);
-//    //console.log(listingData[key][1]);
-
-//    plotList.push(tuple);
-// }
 
 //plotting the points fed in by the user 
 function plotPoints(plotList)
@@ -1075,13 +1056,7 @@ function plotPoints(plotList)
 }
 
 
-
-
-
 //Sending and Returning Requests from app.py 
-
-
-
 
 //generic method for producing all of HTML classes associated with a listing 
 function renderListing(key, listingData)
@@ -1272,8 +1247,8 @@ function loadFilters()
 		}
 
 
-	// var url = "http://127.0.0.1:5000/";
-	var url = "https://sebsfdevelop.herokuapp.com/";
+	var url = "http://127.0.0.1:5000/";
+	//var url = "https://sebsfdevelop.herokuapp.com/";
 
 	url = url+'loadFilters';
 	
@@ -1300,7 +1275,7 @@ function processNeighborhood(neighborhood)
 			myNode.remove(myNode.firstChild)
 		}
 	//TODO: figure out a way to parametrize this url
-	// var url = "http://127.0.0.1:5000/";
+	//var url = "http://127.0.0.1:5000/";
 	var url = "https://sebsfdevelop.herokuapp.com/";
 
 	console.log(neighborhood);
@@ -1346,7 +1321,7 @@ function processRequest()
 			myNode.remove(myNode.firstChild)
 		}
 	//TODO: figure out a way to parametrize this url
-	// var url = "http://127.0.0.1:5000/";
+	//var url = "http://127.0.0.1:5000/";
 	var url = "https://sebsfdevelop.herokuapp.com/";
 
 	//obtain the filings selected

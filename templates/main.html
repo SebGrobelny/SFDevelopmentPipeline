@@ -23,7 +23,67 @@
 
 <h1> Welcome to the San Francisco Development Pipeline </h1>
  <h3 id="details">Click on a neighborhood or select filters for development insights</h3>
- <div id ="filters"> </div>
+ <div id ="filters"> 
+
+
+
+ 	<select id="Select a Neighborhood" class ="selectpicker">
+ 						<option value = "null"> Select a Neighborhood </option>
+						<option value ="Inner Richmond">        Inner Richmond </option>
+						<option value ="Financial District">   Financial District </option>
+						<option value ="Glen Park ">  Glen Park </option>
+						<option value ="Western Addition">   Western Addition </option>
+						<option value ="Outer Richmond">   Outer Richmond </option>
+						<option value ="Parkside">   Parkside </option>
+						<option value ="Presidio Heights">   Presidio Heights </option>
+						<option value ="Bernal Heights">   Bernal Heights </option>
+						<option value ="South of Market">   South of Market </option>
+						<option value ="Potrero Hill">   Potrero Hill </option>
+						<option value ="Pacific Heights">   Pacific Heights </option>
+						<option value ="Excelsior">   Excelsior </option>
+						<option value ="Visitacion Valley">   Visitacion Valley </option>
+						<option value ="Marina">   Marina </option>
+						<option value ="Nob Hill">   Nob Hill </option>
+						<option value ="Lakeshore ">  Lakeshore </option>
+						<option value ="West of Twin Peaks">   West of Twin Peaks </option>
+						<option value ="Chinatown">   Chinatown </option>
+						<option value ="Noe Valley">   Noe Valley </option>
+						<option value ="North Beach">   North Beach </option>
+						<option value ="Castro/Upper Market">   Castro/Upper Market </option>
+						<option value ="Haight Ashbury">   Haight Ashbury </option>
+						<option value ="Outer Sunset">   Outer Sunset </option>
+						<option value ="Bayview ">  Bayview </option>
+						<option value ="Ocean View">   Ocean View </option>
+						<option value ="Seacliff">   Seacliff </option>
+						<option value ="Treasure Island/YBI">   Treasure Island/YBI </option>
+						<option value ="Downtown/Civic Center ">  Downtown/Civic Center </option>
+						<option value ="Crocker Amazon ">  Crocker Amazon </option>
+						<option value ="Mission ">  Mission </option>
+						<option value ="Inner Sunset ">  Inner Sunset </option>
+						<option value ="Russian Hill">   Russian Hill </option>
+						<option value ="Outer Mission ">  Outer Mission </option>
+						<option value ="Twin Peaks ">  Twin Peaks </option>
+
+ 	</select>
+
+ 	<select id="Select a Year" class="selectpicker">
+
+          <option value="null">Select a Year</option>
+          <option value="2015">2015</option>
+      </select>
+
+
+      <select id="Select a Quarter" class="selectpicker">
+
+          <option value="null">Select a Quarter</option>
+          <option value="Q1">Q1</option>
+          <option value="Q2">Q2</option>
+          <option value="Q3">Q3</option>
+           <option value="Q4">Q4</option>
+      </select>
+
+     <input type="button" class="button" value="Filter" onclick="procesRequest()">
+ </div>
 <div id = "map"> </div>
 <div id = "listings"> </div>
 

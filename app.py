@@ -15,11 +15,11 @@ def main():
 
 #GET requests
 #obtain filters
-@app.route('/loadFilters', methods=['GET'])
-def loadFilters():
-	listingDict = filtersFromTable()
+# @app.route('/loadFilters', methods=['GET'])
+# def loadFilters():
+# 	listingDict = filtersFromTable()
 
-	return jsonify(listingDict)
+# 	return jsonify(listingDict)
 
 #obtain all listings
 @app.route('/getAll', methods=['GET'])
