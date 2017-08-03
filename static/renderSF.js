@@ -1299,7 +1299,7 @@ function processNeighborhood(neighborhood)
 	// var url = "https://sebsfdevelop.herokuapp.com/";
 
 	console.log(neighborhood);
-	url = url+"getNeighborhood/neighborhood="+neighborhood;
+	url = url+"/getNeighborhood/neighborhood="+neighborhood;
 
 
 	function reqListener(){
