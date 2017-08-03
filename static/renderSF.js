@@ -1378,7 +1378,7 @@ function processRequest()
 
 	else
 	{
-		url = url +"getFilters/neighborhood="+neighborhood.toString()+"/filing="+filing.toString()+"/year="+year.toString()+"/quarter="+quarter.toString();
+		url = url +"/getFilters/neighborhood="+neighborhood.toString()+"/filing="+filing.toString()+"/year="+year.toString()+"/quarter="+quarter.toString();
 	}
 	
 
