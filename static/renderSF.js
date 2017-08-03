@@ -1288,14 +1288,14 @@ function loadFilters()
 //takes neighborhood user clicked on and passes it along to app.py
 function processNeighborhood(neighborhood)
 {
+  var url = window.location.origin;
 	//if our temp is still there from the last request
 	if(document.getElementById("temp"))
 		{
 			myNode = document.getElementById("temp")
 			myNode.remove(myNode.firstChild)
 		}
-	//TODO: figure out a way to parametrize this url
-	var url = "http://127.0.0.1:5000/";
+	
 	// var url = "https://sebsfdevelop.herokuapp.com/";
 
 	console.log(neighborhood);
