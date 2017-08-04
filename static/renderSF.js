@@ -1,4 +1,8 @@
 //D3 San Francisco Contoour Visualization adapted from Krishna Ravi Shankar
+//------------------------------------------------------------------------
+//D3 visualization library
+//------------------------------------------------------------------------
+
 
 //initialize global svg
 var svg = null;
@@ -1056,21 +1060,37 @@ var width = 918,
 
 //TODO create function that takes coordinates of locations generated and plots them on map
 
-//plotting the points fed in by the user 
-function plotPoints(plotList)
+//point removal
+function plotRemoval()
 {
-	//remove existing
-	svg.selectAll("circle")
-		.remove()
-	    // add circles to sv g
-	    console.log(plotList);
+  console.log("Removing points");
     svg.selectAll("circle")
-		.data(plotList).enter()
+    .remove()
+
+}
+
+
+//plotting the points fed in by the user 
+function plotPoints(dataList,colorlist,color)
+{
+  //            1-blue     2-purple    3-pink     4-red     5-orange    6-yellow    7-green
+  colorlist = {"BP ISSUED":"#0033cc", 
+              "BP REINSTATED": "#6600cc", 
+              "PL FILED":"#ff00ff" , 
+              "BP FILED":"#cc0000", 
+              "BP APPROVED":"#ff9933", 
+              "PL APPROVED": "#ffff66",  
+              "CONSTRUCTION": "#669900"}
+	 // add circles to sv g
+	   console.log(plotList);
+    svg.selectAll("circle")
+		.data(dataList).enter()
 		.append("circle")
-		.attr("cx", function (d) {  return projection(d)[0]; })
-		.attr("cy", function (d) { return projection(d)[1]; })
+		.attr("cx", function (d) {  return projection(d['Location'])[0]; })
+		.attr("cy", function (d) { return projection(d['Location'])[1]; })
 		.attr("r", "4px")
-		.attr("fill", "#FB5B1F")
+		.attr("fill", function(d) { return colorlist[d["BESTSTAT"]]; })
+
 
 
 }
@@ -1100,6 +1120,7 @@ function renderListing(key, listingData)
 function renderMain(listingDictionary)
 {
 	console.log("Made it renderMain");
+  plotRemoval();
 	console.log(listingDictionary);
   if(document.getElementById("load"))
   {
@@ -1131,6 +1152,8 @@ function renderMain(listingDictionary)
 
 	//create an empty list of plots to append to 
 	plotList = [];
+
+  var dataList = [];
 
 	//iterate through all of the keys in the listings dictionary
 	for(var num in listings)
@@ -1178,6 +1201,7 @@ function renderMain(listingDictionary)
 				}
 				if (base_key == "Location")
 				{
+          var dict = {}
 					//plot the coordinates
 
 					//appendPlot(base_key, listings[num], plotList);
@@ -1189,7 +1213,15 @@ function renderMain(listingDictionary)
 					   console.log(tuple);
 					   //console.log(listingData[key][1]);
 
+            dict['Location'] = tuple;
+            dict['BESTSTAT'] = listings[num]['BESTSTAT'];
+
+            console.log(dict);
+
+            dataList.push(dict);
+
 					   plotList.push(tuple);
+
 				}
 				
 
@@ -1201,11 +1233,12 @@ function renderMain(listingDictionary)
 
 
 	}
-
+  console.log(dataList);
 	//console.log(plotList);
 
 	//plot all of the points passed in by the user
-	plotPoints(plotList);
+	plotPoints(dataList);
+
 
 }
 
