@@ -69,7 +69,7 @@ def openFileTable(years,quarters):
 				table1 = etl.cut(table1,'PROJECT_TYPE','NAMEADDR','BESTDATE','BESTSTAT','PROPUSE','NEIGHBORHOOD','LOCATION' )
 
 			if quarter == 'Q2':
-				print quarter
+				# print quarter
 				#attrList = [2,3,4,15,37,42,44]
 				table1 = etl.cut(table1, 'BESTSTAT','BESTDATE','NAMEADDR','PROPUSE','NEIGHBORHOOD','ZONING_GEN','Location')
 
@@ -110,7 +110,7 @@ def dictFromTable():
 
 	listings = []
 
-	print "in here "
+	# print "in here "
 	years = ['2016']
 	quarters =['Q1','Q2','Q3','Q4']
 
@@ -192,8 +192,8 @@ def getFromTable(zipcode):
 		element = {}
 		count = 0
 
-		print comp
-		print len(comp)
+		# print comp
+		# print len(comp)
 		element['BESTSTAT'] = comp[0]
 		element['BESTDATE'] = comp[1]
 		element['ADDRESS'] = comp[2]
@@ -201,10 +201,10 @@ def getFromTable(zipcode):
 		element['PROJECT_TYPE'] = comp[4]
 		element['PROPERTY_USE'] = comp[5]
 		element['Neighborhood'] = comp[6]
-		print comp[6]
+		# print comp[6]
 		element['Location'] = comp[7]
 		element['Quarter'] = comp[8]
-		print comp[7]
+		# print comp[7]
 		element['Year'] = comp[9]
 
 		neighbors.append(element)
