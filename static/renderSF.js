@@ -1067,32 +1067,126 @@ function plotRemoval()
     svg.selectAll("circle")
     .remove()
 
+
+      var div = document.getElementById('pie');
+      while(div.firstChild){
+        div.removeChild(div.firstChild);
+    }
+
 }
+
 
 
 //plotting the points fed in by the user 
 function plotPoints(dataList,colorlist,color)
 {
   //            1-blue     2-purple    3-pink     4-red     5-orange    6-yellow    7-green
-  colorlist = {"BP ISSUED":"#0033cc", 
-              "BP REINSTATED": "#6600cc", 
-              "PL FILED":"#ff00ff" , 
-              "BP FILED":"#cc0000", 
-              "BP APPROVED":"#ff9933", 
-              "PL APPROVED": "#ffff66",  
-              "CONSTRUCTION": "#669900"}
+  var color = d3.scaleOrdinal()
+  .range(['#0033cc', '#6600cc', '#ff00ff', '#cc0000', '#ff9933','#ffff66','#669900']);
+
+
+
+
+  // var colorlist = {"BP ISSUED":"#0033cc", 
+  //             "BP REINSTATED": "#6600cc", 
+  //             "PL FILED":"#ff00ff" , 
+  //             "BP FILED":"#cc0000", 
+  //             "BP APPROVED":"#ff9933", 
+  //             "PL APPROVED": "#ffff66",  
+  //             "CONSTRUCTION": "#669900"}
 	 // add circles to sv g
-	   console.log(plotList);
+
     svg.selectAll("circle")
 		.data(dataList).enter()
 		.append("circle")
 		.attr("cx", function (d) {  return projection(d['Location'])[0]; })
 		.attr("cy", function (d) { return projection(d['Location'])[1]; })
 		.attr("r", "4px")
-		.attr("fill", function(d) { return colorlist[d["BESTSTAT"]]; })
+		.attr("fill", function(d) { console.log(d["BESTSTAT"]); return color(d["BESTSTAT"]); })
 
 
 
+}
+
+
+//render the piechart 
+
+function plotPie(pieList)
+{
+    var color = d3.scaleOrdinal()
+  .range(['#0033cc', '#6600cc', '#ff00ff', '#cc0000', '#ff9933','#ffff66','#669900']);
+
+   // var  colorlist = {
+   //            "Building Permits Issued":"#0033cc", 
+   //            "Building Permits Reinstated": "#6600cc", 
+   //            "Plans Filed":"#ff00ff" , 
+   //            "Building Permits Filed":"#cc0000", 
+   //            "Builidng Permits Approved":"#ff9933", 
+   //            "Plans Approved": "#ffff66",  
+   //            "Under Construction": "#669900"}
+
+
+  var width = 480;
+  var height = 480;
+  var radius = Math.min(width, height) / 2;
+
+
+  var svg = d3.select('#pie')
+  .append('svg')
+  .attr('width', width)
+  .attr('height', height)
+  .append('g')
+  .attr('transform', 'translate(' + (width / 2) +  ',' + (height / 2) + ')');
+
+  var donutWidth = 80;
+
+  var arc = d3.arc()
+  .innerRadius(radius - donutWidth)
+  .outerRadius(radius);
+
+  var pie = d3.pie()
+  .value(function(d) { return d["amount"]; })
+  .sort(null);
+
+  var path = svg.selectAll('path')
+  .data(pie(pieList))
+  .enter()
+  .append('path')
+  .attr('d', arc)
+  .attr('fill', function(d) { return color(d.data.apptype); 
+  });
+
+  var legendRectSize = 20;
+  var legendSpacing = 6;
+
+  // var colorValues = $.map(colorlist, function(value, key) { return value });
+  // var colorKeys = $.map(colorlist, function(value, key) { return key });
+
+  var legend = svg.selectAll('.legend')
+  .data(color.domain())
+  .enter()
+  .append('g')
+  .attr('class', 'legend')
+  .attr('transform', function(d, i) {
+    var height = legendRectSize + legendSpacing;
+    var offset =  height * color.domain().length / 2;
+    var horz = -2 * legendRectSize;
+    var vert = i * height - offset;
+    return 'translate(' + horz + ',' + vert + ')';
+  });
+
+  legend.append('rect')
+  .attr('width', legendRectSize)
+  .attr('height', legendRectSize)
+  .style('fill', color)
+  .style('stroke', color);
+
+  legend.append('text')
+  .attr('x', legendRectSize + legendSpacing)
+  .attr('y', legendRectSize - legendSpacing)
+  .text(function(d) { console.log(d);
+                        return d; })
+  .style('fill', "#FFFFFF");
 }
 
 
@@ -1151,9 +1245,9 @@ function renderMain(listingDictionary)
 	document.getElementById("temp").append(properties);
 
 	//create an empty list of plots to append to 
-	plotList = [];
-
   var dataList = [];
+
+  var pieList = [];
 
 	//iterate through all of the keys in the listings dictionary
 	for(var num in listings)
@@ -1166,14 +1260,28 @@ function renderMain(listingDictionary)
 			//creating the class for the insights headers
 			if (num == 0)
 			{
+          var dict = {}
 					var baseClass = document.createElement('div');
 					baseClass.setAttribute("id",base_key);
-
-
-					
 					console.log(base_key);
 					baseClass.textContent = base_key
 					document.getElementById("insights").append(baseClass);
+
+          if(base_key == "Commercial Project Count" || base_key=="Residential Project Count")
+          {
+            continue;
+          }
+          else
+          {
+          dict["apptype"] = base_key
+          dict["amount"] = listings[num][base_key]
+
+          pieList.push(dict);
+
+          }
+
+
+
 			}
 			//creating class for the properties headers
 			if(num == 1)
@@ -1184,8 +1292,6 @@ function renderMain(listingDictionary)
 					{
 					var baseClass = document.createElement('div');
 					baseClass.setAttribute("id",base_key);
-
-					
 					console.log(base_key);
 					baseClass.textContent = base_key
 					document.getElementById("properties").append(baseClass);
@@ -1220,7 +1326,7 @@ function renderMain(listingDictionary)
 
             dataList.push(dict);
 
-					   plotList.push(tuple);
+					 //plotList.push(tuple);
 
 				}
 				
@@ -1234,10 +1340,12 @@ function renderMain(listingDictionary)
 
 	}
   console.log(dataList);
+  console.log(pieList);
 	//console.log(plotList);
 
 	//plot all of the points passed in by the user
 	plotPoints(dataList);
+  plotPie(pieList);
 
 
 }
