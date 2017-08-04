@@ -29,10 +29,10 @@ def getAllDict():
 	return jsonify(listingDict)
 
 #obtain listings from a certain neighborhood--used with the map
-@app.route('/getNeighborhood/neighborhood=<neighborhood>', methods=['GET'])
-def getNeighborhoodDict(neighborhood):
+@app.route('/getNeighborhood/zipcode=<zipcode>', methods=['GET'])
+def getNeighborhoodDict(zipcode):
 
-	listingDict = getFromTable(neighborhood)
+	listingDict = getFromTable(zipcode)
 
 	return jsonify(listingDict)
 
@@ -49,12 +49,6 @@ def getFilters(neighborhoods,filings,years,quarters):
 	listingDict = getFiltersFromTable(neighborhoods,filings,years,quarters)
 
 	return jsonify(listingDict)
-
-
-
-
-
-
 
 #always goes at the bottom of the page
 

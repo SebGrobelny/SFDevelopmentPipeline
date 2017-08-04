@@ -1040,7 +1040,7 @@ var width = 918,
   }).attr('data-name', function(d) {
     return d.properties.name;
   }).on('click', function(d){ 
-  	processNeighborhood(d.properties.name);
+  	processNeighborhood(d.properties.id);
 
   }).style("fill", "#1181B8").style("stroke", "#ffffff");
 
@@ -1101,6 +1101,12 @@ function renderMain(listingDictionary)
 {
 	console.log("Made it renderMain");
 	console.log(listingDictionary);
+  if(document.getElementById("load"))
+  {
+    myNode = document.getElementById("load");
+    myNode.remove(myNode.firstChild);
+  }
+
 	var listings =  JSON.parse(listingDictionary);
 
 	//create a temporary class that will get cleared out each time new info is requested by the user
@@ -1285,35 +1291,7 @@ function loadFilters()
 
 }
 
-//takes neighborhood user clicked on and passes it along to app.py
-function processNeighborhood(neighborhood)
-{
-  var url = window.location.origin;
-	//if our temp is still there from the last request
-	if(document.getElementById("temp"))
-		{
-			myNode = document.getElementById("temp")
-			myNode.remove(myNode.firstChild)
-		}
-	
-	// var url = "https://sebsfdevelop.herokuapp.com/";
 
-	console.log(neighborhood);
-	url = url+"/getNeighborhood/neighborhood="+neighborhood;
-
-
-	function reqListener(){
-		renderMain(this.responseText)
-	}
-
-	//put a request into FLASK
-	var oReq = new XMLHttpRequest();
-    oReq.addEventListener("load", reqListener);
-    oReq.open("GET", url);
-    oReq.send();
-
-
-}
 //helper function for processRequest--determines what filters were selected 
 function getSelectValues(select) {
   var result = [];
@@ -1329,7 +1307,44 @@ function getSelectValues(select) {
   }
   return result;
 }
+//-----------------------------------------------------------------------------------
+//requests called from main.html
+//-----------------------------------------------------------------------------------
 
+//takes neighborhood user clicked on and passes it along to app.py
+function processNeighborhood(zipcode)
+{
+  var url = window.location.origin;
+  //if our temp is still there from the last request
+  if(document.getElementById("temp"))
+    {
+      myNode = document.getElementById("temp")
+      myNode.remove(myNode.firstChild)
+    }
+
+  var parent = document.getElementById('listings');
+
+  var loader = document.createElement("div");
+  loader.id = "load";
+
+  parent.appendChild(loader);
+
+  console.log(zipcode);
+  url = url+"/getNeighborhood/zipcode="+zipcode;
+
+
+  function reqListener(){
+    renderMain(this.responseText)
+  }
+
+  //put a request into FLASK
+  var oReq = new XMLHttpRequest();
+    oReq.addEventListener("load", reqListener);
+    oReq.open("GET", url);
+    oReq.send();
+
+
+}
 
 //generic request 
 function processRequest()
@@ -1340,7 +1355,14 @@ function processRequest()
 			myNode = document.getElementById("temp")
 			myNode.remove(myNode.firstChild)
 		}
-	//TODO: figure out a way to parametrize this url
+
+  var parent = document.getElementById('listings');
+
+  var loader = document.createElement("div");
+  loader.id = "load";
+
+  parent.appendChild(loader);
+
 	var url = window.location.origin;
 	// var url = "https://sebsfdevelop.herokuapp.com/";
 
