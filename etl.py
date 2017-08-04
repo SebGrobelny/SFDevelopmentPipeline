@@ -209,13 +209,13 @@ def getFromTable(zipcode):
 
 		neighbors.append(element)
 
-		if 'BP FILED' == d[i]['BESTSTAT']:
+		if 'BP FILED' == element['BESTSTAT']:
 			insights['Building Permits Filed'] = insights['Building Permits Filed']+1
 
-		if 'Resident' == d[i]['PROJECT_TYPE']:
+		if 'Resident' == element['PROJECT_TYPE']:
 			insights['Residential Project Count'] = insights['Residential Project Count']+1
 
-		if 'Mixed' == d[i]['PROJECT_TYPE']:
+		if 'Mixed' == element['PROJECT_TYPE']:
 			insights['Commercial Project Count'] = insights['Commercial Project Count']+1
 
 	neighbors.insert(0,insights)
