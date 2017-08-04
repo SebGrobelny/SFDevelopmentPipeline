@@ -49,7 +49,7 @@ def openFileTable(years,quarters):
 		#traverse through the list of quarters provided via filters
 		for quarter in quarters:
 			fileString = year+'_'+quarter+'.csv'
-			print fileString
+			#print fileString
 			table1 = etl.fromcsv(fileString)
 
 			#TODO--migrate transformations accordingly
