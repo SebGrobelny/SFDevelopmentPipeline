@@ -157,14 +157,14 @@ def filtersFromTable():
 
 	filters['Select a Filing'] = uniqueFilings.keys()
 
-	print(type(filters))
+
 
 	return filters
 
 #TODO incoprotate select filters into neighborhood stuff 
 def getFromTable(zipcode):
 
-	print "in here "
+	
 	neighbors = []
 
 
