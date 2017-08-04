@@ -260,7 +260,7 @@ def getFiltersFromTable(neighborhoods,filings,years,quarters):
 		d = etl.dicts(table)
 		# print etl.look(table)
 		#list of dictionaries
-		print d
+		#print d
 		b = list(d)
 
 
@@ -274,7 +274,7 @@ def getFiltersFromTable(neighborhoods,filings,years,quarters):
 					if 'BP FILED' == b[i]['BESTSTAT']:
 						insights['Building Permits Filed'] = insights['Building Permits Filed']+1
 
-					print b[i]
+					#print b[i]
 
 					if b[i]['Quarter'] == 'Q2':
 						continue
