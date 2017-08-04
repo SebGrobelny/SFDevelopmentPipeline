@@ -172,10 +172,25 @@ def getFromTable(zipcode):
 	insights = {}
 	#number of applications filed
 	insights['Building Permits Filed']=0
+
+	insights['Plans Approved'] = 0 
+
+	insights['Under Construction'] = 0
+
+	insights['Plans Filed'] = 0
+
+	insights['Building Permits Issued'] = 0
+
+	insights['Building Permits Reinstated'] = 0
+
+
+
 	#number of commercial in the works
 	insights['Commercial Project Count']=0
 	#number of residential in the works
 	insights['Residential Project Count']=0
+
+
 
 	conn = sqlite3.connect('dev2017Q1.db')
 
@@ -209,8 +224,29 @@ def getFromTable(zipcode):
 
 		neighbors.append(element)
 
+
+
+		if 'BP REINSTATED' == element['BESTSTAT']:
+			insights['Building Permits Reinstated'] = insights['Building Permits Reinstated']+1
+
 		if 'BP FILED' == element['BESTSTAT']:
 			insights['Building Permits Filed'] = insights['Building Permits Filed']+1
+
+		if 'PL FILED' == element['BESTSTAT']:
+			insights['Plans Filed'] = insights['Plans Filed']+1
+
+		if 'BP ISSUED' == element['BESTSTAT']:
+			insights['Building Permits Issued'] = insights['Building Permits Issued']+1
+
+		if 'PL APPROVED' == element['BESTSTAT']:
+			insights['Plans Approved'] = insights['Plans Approved']+1
+
+		if 'CONSTRUCTION' == element['BESTSTAT']:
+			insights['Under Construction'] = insights['Under Construction']+1
+
+
+
+
 
 		if 'Resident' == element['PROJECT_TYPE']:
 			insights['Residential Project Count'] = insights['Residential Project Count']+1
