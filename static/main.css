@@ -50,6 +50,18 @@ h1
   font-family: 'Fjalla One', sans-serif;
 }
 
+#visualizations
+{
+    display: flex;
+    flex-direction: row;
+    /*justify-content: space-between;*/
+    flex: 1;
+    flex-wrap: wrap;
+    margin: 25px;
+/*    border: 1px solid white;*/
+
+
+}
 
 /*#pie {
     font-size: 12px;
