@@ -1,7 +1,7 @@
 //D3 San Francisco Contoour Visualization adapted from Krishna Ravi Shankar
-//------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------------------------------------
 //D3 visualization library
-//------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------------------------------------
 
 
 //initialize global svg
@@ -1080,9 +1080,9 @@ function plotRemoval()
 //plotting the points fed in by the user 
 function plotPoints(dataList,colorlist,color)
 {
-  //            1-blue     2-purple    3-pink     4-red     5-orange    6-yellow    7-green
+  //           2-purple    3-pink     4-red     5-orange    6-yellow    7-green
   var color = d3.scaleOrdinal()
-  .range(['#0033cc', '#6600cc', '#ff00ff', '#cc0000', '#ff9933','#ffff66','#669900']);
+  .range(['#9999ff', '#66ffcc', '#ff5050', '#ff9966','#ffff66','#99ff66']);
 
 
 
@@ -1113,8 +1113,8 @@ function plotPoints(dataList,colorlist,color)
 
 function plotPie(pieList)
 {
-    var color = d3.scaleOrdinal()
-  .range(['#0033cc', '#6600cc', '#ff00ff', '#cc0000', '#ff9933','#ffff66','#669900']);
+  var color = d3.scaleOrdinal()
+  .range(['#9999ff', '#66ffcc', '#ff5050', '#ff9966','#ffff66','#99ff66']);
 
    // var  colorlist = {
    //            "Building Permits Issued":"#0033cc", 
@@ -1189,8 +1189,11 @@ function plotPie(pieList)
   .style('fill', "#FFFFFF");
 }
 
+//-----------------------------------------------------------------------------------------------------------------------------
 
-//Sending and Returning Requests from app.py 
+//Serving Responses from app.py 
+
+//-----------------------------------------------------------------------------------------------------------------------------
 
 //generic method for producing all of HTML classes associated with a listing 
 function renderListing(key, listingData)
@@ -1335,9 +1338,6 @@ function renderMain(listingDictionary)
 
 		}
 
-
-
-
 	}
   console.log(dataList);
   console.log(pieList);
@@ -1448,9 +1448,9 @@ function getSelectValues(select) {
   }
   return result;
 }
-//-----------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------------------
 //requests called from main.html
-//-----------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------------------
 
 //takes neighborhood user clicked on and passes it along to app.py
 function processNeighborhood(zipcode)
